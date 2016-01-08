@@ -1,4 +1,6 @@
-package pl.edu.uksw.irc.connection;
+package pl.edu.uksw.irc;
+
+import pl.edu.uksw.irc.network.ConnectionManager;
 
 public class Starter {
 

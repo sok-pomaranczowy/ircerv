@@ -1,4 +1,4 @@
-package pl.edu.uksw.irc.connection;
+package pl.edu.uksw.irc.network;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
