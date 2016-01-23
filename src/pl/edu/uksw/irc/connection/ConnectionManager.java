@@ -11,7 +11,8 @@ import java.util.Iterator;
 
 /**
  * @author jaroslaw.waledziak
- *
+ *		
+ *			OBSOLETE!!!!
  *         Class used for Managing Connections from clients creates
  *         ServerSocketChannel and SocketChannels it parses incoming messages
  *         and runs appripriate methods of UserManager
@@ -96,10 +97,12 @@ public class ConnectionManager implements Runnable {
 						
 						
 
-						System.out.println("Receiving stuff!");
+						
 						SelectionKey keyReady = keyIter.next();
+						
 						SocketChannel readChan = (SocketChannel) keyReady
 								.channel();
+						
 						
 						ByteBuffer readBuf = ByteBuffer.allocate(2048);
 						readChan.read(readBuf);
@@ -126,11 +129,12 @@ public class ConnectionManager implements Runnable {
 							readChan.write(buf);
 						}
 
+					}
 						
 						
 
 						keyIter.remove();
-					}
+					
 				}else{
 					Thread.sleep(1000);
 				}
