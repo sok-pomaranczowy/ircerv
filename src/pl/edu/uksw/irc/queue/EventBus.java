@@ -11,7 +11,7 @@ public class EventBus {
 		return null;
 	}
 	
-	public boolean pushOutgoingEvent(){
+	public boolean pushOutgoingEvent(MessageDTO message){
 		return true;
 	}
 	
@@ -19,7 +19,7 @@ public class EventBus {
 		return null;
 	}
 	
-	public boolean pushIncomingEvent(){
+	public boolean pushIncomingEvent(MessageDTO meessage){
 		return true;
 	}
 	
