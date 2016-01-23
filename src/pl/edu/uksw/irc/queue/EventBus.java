@@ -17,7 +17,7 @@ public class EventBus {
         outgoingQueue =new ConcurrentLinkedQueue<>();
     }
 	public MessageDTO getIncomingEvent(){
-		return null;
+		return incomingQueue.poll();
 	}
 	
 	public boolean pushOutgoingEvent(MessageDTO message){
@@ -26,11 +26,12 @@ public class EventBus {
 	}
 	
 	public MessageDTO getOutgoingEvent(){
-		return null;
+		return outgoingQueue.poll();
 	}
 	
 	public boolean pushIncomingEvent(MessageDTO message){
-		return true;
+		 boolean success = incomingQueue.add(message);
+		return success;
 	}
 	
 	
