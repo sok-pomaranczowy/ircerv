@@ -7,14 +7,22 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
-public class Receiver implements Runnable {
-	Selector selector;
-	SelectionKey key;
+import pl.edu.uksw.irc.dto.MessageDTO;
+import pl.edu.uksw.irc.queue.EventBus;
 
-	public Receiver(Selector selector) {
-		this.selector=selector;
+public class Receiver implements Runnable {
+	
+	Selector selector;
+	EventBus bus;
+	int readFrequency;
+
+	public Receiver(Selector selector, EventBus bus, int readFrequency) {
+		this.bus = bus;
+		this.selector = selector;
+		this.readFrequency = readFrequency;
 	}
 
+	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		while (true) {
@@ -31,36 +39,51 @@ public class Receiver implements Runnable {
 
 					while (keyIter.hasNext()) {
 
-						System.out.println("Receiving stuff!");
 						SelectionKey keyReady = keyIter.next();
 						SocketChannel readChan = (SocketChannel) keyReady
 								.channel();
 
-						ByteBuffer readBuf = ByteBuffer.allocate(2048);
-						readChan.read(readBuf);
-						readBuf.flip();
-						String s = "";
-						while (readBuf.hasRemaining()) {
-							s += (char) readBuf.get(); // read 1 byte at a time
-						}
-						String[] ss = s.split("\r\n|[\r\n]");
-						for (String sss : ss) {
-							System.out.print(sss);
-							System.out.println('*');
-							System.out.println("splitu");
+						if (keyReady.isReadable()) {
+							System.out.println("Receiving stuff!");
 
-							// TODO:
-							// TUTAJ WRZUCAMY NA KOLEJKE TO CO PRZYSZ£O!!!
-						}
+							ByteBuffer readBuf = ByteBuffer.allocate(2048);
 
+							readChan.read(readBuf);
+							readBuf.flip();
+							String receivedMessage = "";
+							while (readBuf.hasRemaining()) {
+								
+								// read 1 byte at a time
+								receivedMessage += (char) readBuf.get(); 
+								
+							}
+							String[] splittedMessage = receivedMessage
+									.split("\r\n|[\r\n]");
+							for (String singleMessage : splittedMessage) {
+								System.out.print(singleMessage);
+								System.out.println('*');
+								System.out.println("splitu");
+
+								//MessageDTO message = null;
+								MessageDTO message = new MessageDTO(singleMessage,
+								keyReady);
+
+								bus.pushIncomingEvent(message);
+
+							}
+						}
+						else{
+							howManyChannelsReady--;
+						}
 						keyIter.remove();
 					}
-				} else {
-					Thread.sleep(1000);
+				} if(howManyChannelsReady <= 0)
+				{
+					Thread.sleep(readFrequency);
 				}
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -45,7 +45,7 @@ public class Accepter implements Runnable {
 					socketChannel.configureBlocking(false);
 
 					SelectionKey key = socketChannel.register(selector,
-							SelectionKey.OP_READ, SelectionKey.OP_WRITE);
+							SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 					
 					
 				} else {
