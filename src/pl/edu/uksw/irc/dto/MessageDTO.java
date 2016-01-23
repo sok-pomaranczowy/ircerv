@@ -15,7 +15,7 @@ public class MessageDTO {
     private String host;
     private Command command; 
     private String params = "";
-    private String middleParams; //do kogo
+    private String [] middleParams; //do kogo
     private String trailingParams; //treść wiadomości
     private String unparsedMessage;
     SelectionKey from;
@@ -95,11 +95,11 @@ public class MessageDTO {
         this.params = params;
     }
 
-    public String getMiddleParams() {
+    public String[] getMiddleParams() {
         return middleParams;
     }
 
-    public void setMiddleParams(String middleParams) {
+    public void setMiddleParams(String [] middleParams) {
         this.middleParams = middleParams;
     }
 
