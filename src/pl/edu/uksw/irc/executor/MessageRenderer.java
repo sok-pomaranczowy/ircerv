@@ -11,19 +11,21 @@ public class MessageRenderer {
     public String renderMessage(MessageDTO msg) {
         
         if(!msg.getName().isEmpty()) {
-            message = ":"+msg.getName();
+            message = ":"+msg.getName()+" ";
+           
             if(!msg.getUser().isEmpty()) {
+                message.trim();
                 message = message + "!" + msg.getUser();
                 if(!msg.getHost().isEmpty()) {
-                    message = message + "@" + msg.getHost();
+                    message = message + "@" + msg.getHost()+" ";
                 }
             }
         }
-        message = message + " " + msg.getCommand().name() + " " + msg.getMiddleParams();
+        message = message + msg.getCommand().name() + " " + msg.getMiddleParams();
         if(!msg.getTrailingParams().isEmpty()) {
             message = message + " :"+msg.getTrailingParams();
         }
-        return message;
+        return message.trim();
         }
 }
 //zamienia akcje na wiadomosc

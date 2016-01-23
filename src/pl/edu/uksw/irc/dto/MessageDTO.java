@@ -1,20 +1,32 @@
 package pl.edu.uksw.irc.dto;
 
 import static java.lang.Compiler.command;
+import java.nio.channels.SelectionKey;
 
 /**
  * Created by sok_pomaranczowy on 08.01.16.
  */
 public class MessageDTO {
+
+    
     private String prefix = "";
     private String name; //serverName lub nick
     private String user;
     private String host;
-    private Command command; //channel?
+    private Command command; 
     private String params = "";
     private String middleParams; //do kogo
     private String trailingParams; //treść wiadomości
+    private String unparsedMessage;
+    SelectionKey from;
+
+    public MessageDTO() {
+    }
     
+    public MessageDTO(String unparsedMessage, SelectionKey from) {
+        this.unparsedMessage = unparsedMessage;
+        this.from = from;
+    }
     public String getPrefix() {
         return prefix;
     }
