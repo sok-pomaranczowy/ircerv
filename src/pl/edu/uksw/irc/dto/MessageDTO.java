@@ -19,6 +19,23 @@ public class MessageDTO {
     private String trailingParams; //treść wiadomości
     private String unparsedMessage;
     SelectionKey from;
+    SelectionKey to;
+
+    public SelectionKey getFrom() {
+        return from;
+    }
+
+    public void setFrom(SelectionKey from) {
+        this.from = from;
+    }
+
+    public SelectionKey getTo() {
+        return to;
+    }
+
+    public void setTo(SelectionKey to) {
+        this.to = to;
+    }
 
     public MessageDTO() {
     }
@@ -26,6 +43,9 @@ public class MessageDTO {
     public MessageDTO(String unparsedMessage, SelectionKey from) {
         this.unparsedMessage = unparsedMessage;
         this.from = from;
+    }
+    public String getUnparsedMessage() {
+        return unparsedMessage;
     }
     public String getPrefix() {
         return prefix;

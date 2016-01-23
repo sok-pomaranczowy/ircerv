@@ -8,15 +8,17 @@ import pl.edu.uksw.irc.dto.MessageDTO;
  */
 public class MessageParser {
 
-    public MessageDTO parseMessage(String message) {
-        MessageDTO msg = new MessageDTO();
+    public MessageDTO parseMessage(MessageDTO msg) {
+        
+        String unparsedMessage= msg.getUnparsedMessage();
+       
         int begin;
         int end;
         String[] messageSplit;
 
         //prefix
-        if (message.startsWith(":")) {
-            messageSplit = message.split(" ", 3);
+        if (unparsedMessage.startsWith(":")) {
+            messageSplit = unparsedMessage.split(" ", 3);
             msg.setPrefix(messageSplit[0]);
             if (msg.getPrefix().contains("!")) {
                 begin = msg.getPrefix().indexOf(":");
@@ -70,7 +72,7 @@ public class MessageParser {
             }
 
         } else {
-            messageSplit = message.split(" ", 2);
+            messageSplit = unparsedMessage.split(" ", 2);
             if (messageSplit[0].equals("quit")) {
                 msg.setCommand(Command.QUIT);
             }

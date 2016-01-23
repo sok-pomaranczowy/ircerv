@@ -21,7 +21,7 @@ public class MessageParserTest {
         renderer = new MessageRenderer();
     }
         
-    @Test
+    /*@Test
     public void testPasswordMessage(){
         //parseMessage(":hello!sir@madam PRIVMSG #test :Hello, world!");
         String incomingMessage = ":hello!sir@madam PRIVMSG #test :Hello, world!";
@@ -34,7 +34,7 @@ public class MessageParserTest {
         Assert.assertEquals(parseMessage.getTrailingParams(), "Hello, world!");
         assertThat(parseMessage.getName(), not("h1ello"));
         
-    }
+    }*/
 
     
      @Test
