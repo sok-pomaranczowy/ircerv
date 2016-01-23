@@ -1,5 +1,7 @@
 package pl.edu.uksw.irc.dto;
 
+import static java.lang.Compiler.command;
+
 /**
  * Created by sok_pomaranczowy on 08.01.16.
  */
@@ -8,11 +10,11 @@ public class MessageDTO {
     private String name; //serverName lub nick
     private String user;
     private String host;
-    private String command;
+    private Command command; //channel?
     private String params = "";
-    private String middleParams;
-    private String trailingParams;
-
+    private String middleParams; //do kogo
+    private String trailingParams; //treść wiadomości
+    
     public String getPrefix() {
         return prefix;
     }
@@ -45,11 +47,11 @@ public class MessageDTO {
         this.host = host;
     }
 
-    public String getCommand() {
+    public Command getCommand() {
         return command;
     }
 
-    public void setCommand(String command) {
+    public void setCommand(Command command) {
         this.command = command;
     }
 

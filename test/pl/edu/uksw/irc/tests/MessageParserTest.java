@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
+import pl.edu.uksw.irc.dto.Command;
 import pl.edu.uksw.irc.dto.MessageDTO;
 import pl.edu.uksw.irc.executor.MessageParser;
 import pl.edu.uksw.irc.executor.MessageRenderer;
@@ -28,7 +29,7 @@ public class MessageParserTest {
         Assert.assertEquals(parseMessage.getName(), "hello");
         Assert.assertEquals(parseMessage.getUser(), "sir");
         Assert.assertEquals(parseMessage.getHost(), "madam");
-        Assert.assertEquals(parseMessage.getCommand(), "PRIVMSG");
+        //Assert.assertEquals(parseMessage.getCommand(), "PRIVMSG");
         Assert.assertEquals(parseMessage.getMiddleParams(), "test ");
         Assert.assertEquals(parseMessage.getTrailingParams(), "Hello, world!");
         assertThat(parseMessage.getName(), not("h1ello"));
@@ -44,7 +45,7 @@ public class MessageParserTest {
         String name = "Angel";
         String user = "";
         String host = "";
-        String command = "PRIVMSG";
+        Command command = Command.PRIVMSG;
         String middleParams ="Wiz";
         String trailingParams = "Hello are you receiving this message?";
         //String msg2 = ":"+name+"!"+user+"@"+host+" "+command+" #"+middleParams+" :"+trailingParams;
@@ -61,8 +62,10 @@ public class MessageParserTest {
         message.setTrailingParams(trailingParams);
         //String msg2 = ":hello!sir@madam PRIVMSG #test :Hello, world!";
         String msg2 = ":Angel PRIVMSG Wiz :Hello are you receiving this message?";
+        String msg3 = ":"+name+" "+Command.PRIVMSG+" "+middleParams+ " :"+trailingParams;
         String msg = renderer.renderMessage(message);
         Assert.assertEquals(msg, msg2);
+        Assert.assertEquals(msg, msg3);
      
         
         

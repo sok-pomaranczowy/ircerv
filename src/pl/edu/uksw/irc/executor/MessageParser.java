@@ -1,13 +1,12 @@
 package pl.edu.uksw.irc.executor;
 
+import pl.edu.uksw.irc.dto.Command;
 import pl.edu.uksw.irc.dto.MessageDTO;
 
 /**
  * Created by sok_pomaranczowy on 08.01.16.
  */
 public class MessageParser {
-
-    
 
     public MessageDTO parseMessage(String message) {
         MessageDTO msg = new MessageDTO();
@@ -48,7 +47,22 @@ public class MessageParser {
                 msg.setName(msg.getPrefix().substring(begin + 1, end));
             }
             //command
-            msg.setCommand(messageSplit[1]);
+            //msg.setCommand(messageSplit[1]);
+            if (messageSplit[1].equals("quit")) {
+                msg.setCommand(Command.QUIT);
+            }
+            else if(messageSplit[1].equals("join")) {
+                msg.setCommand(Command.JOIN);
+            }
+            else if(messageSplit[1].equals("nick")) {
+                msg.setCommand(Command.NICK);
+            }
+            else if(messageSplit[1].equals("privmsg")) {
+                msg.setCommand(Command.PRIVMSG);
+            }
+            else if(messageSplit[1].equals("ping")) {
+                msg.setCommand(Command.PING);
+            }
             //parametry
             for (int i = 2; i < messageSplit.length; i++) {
 
@@ -57,7 +71,21 @@ public class MessageParser {
 
         } else {
             messageSplit = message.split(" ", 2);
-            msg.setCommand(messageSplit[0]);
+            if (messageSplit[0].equals("quit")) {
+                msg.setCommand(Command.QUIT);
+            }
+            else if(messageSplit[0].equals("join")) {
+                msg.setCommand(Command.JOIN);
+            }
+            else if(messageSplit[0].equals("nick")) {
+                msg.setCommand(Command.NICK);
+            }
+            else if(messageSplit[0].equals("privmsg")) {
+                msg.setCommand(Command.PRIVMSG);
+            }
+            else if(messageSplit[0].equals("ping")) {
+                msg.setCommand(Command.PING);
+            }
             for (int i = 1; i < messageSplit.length; i++) {
                 msg.setParams(msg.getParams() + messageSplit[i]);
             }

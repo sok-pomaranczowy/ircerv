@@ -19,7 +19,7 @@ public class MessageRenderer {
                 }
             }
         }
-        message = message + " " + msg.getCommand() + " " + msg.getMiddleParams();
+        message = message + " " + msg.getCommand().name() + " " + msg.getMiddleParams();
         if(!msg.getTrailingParams().isEmpty()) {
             message = message + " :"+msg.getTrailingParams();
         }
