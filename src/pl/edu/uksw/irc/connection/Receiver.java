@@ -50,7 +50,7 @@ public class Receiver implements Runnable {
 							System.out.println("splitu");
 
 							// TODO:
-							// TUTAJ WRZUCAMY NA KOLEJKE TO CO PRZYSZ£O!!!
+							// TUTAJ WRZUCAMY NA KOLEJKE TO CO PRZYSZLO!!!
 						}
 
 						keyIter.remove();
