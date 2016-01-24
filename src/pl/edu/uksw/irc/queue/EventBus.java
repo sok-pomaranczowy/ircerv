@@ -24,11 +24,11 @@ public class EventBus {
             boolean success = outgoingQueue.add(message);
 		return success;
 	}
-	
+
 	public MessageDTO getOutgoingEvent(){
 		return outgoingQueue.poll();
 	}
-	
+
 	public boolean pushIncomingEvent(MessageDTO message){
 		 boolean success = incomingQueue.add(message);
 		return success;
