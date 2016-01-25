@@ -34,6 +34,23 @@ public class MessageParserTest {
         assertThat(parseMessage.getName(), not("h1ello"));
         
     }
+    
+    
+    
+    @Test
+    public void testParserUser(){
+        String incomingMessage = ":hello!sir@madam USER test testusera :Hello, world!";
+        MessageDTO parseMessage = parser.parseMessage(new MessageDTO(incomingMessage,null));
+        Assert.assertEquals(parseMessage.getName(), "hello");
+        Assert.assertEquals(parseMessage.getUser(), "sir");
+        Assert.assertEquals(parseMessage.getHost(), "madam");
+        Assert.assertEquals(parseMessage.getCommand(), Command.USER);
+        Assert.assertEquals(parseMessage.getMiddleParams()[0], "test");
+        Assert.assertEquals(parseMessage.getMiddleParams()[1], "testusera");
+        Assert.assertEquals(parseMessage.getTrailingParams(), "Hello, world!");
+        assertThat(parseMessage.getName(), not("h1ello"));
+        
+    }
 
     
      @Test

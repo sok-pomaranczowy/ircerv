@@ -9,13 +9,13 @@ import pl.edu.uksw.irc.dto.MessageDTO;
 public class MessageParser {
 
     public MessageDTO parseMessage(MessageDTO msg) {
-        
-        String unparsedMessage= msg.getUnparsedMessage();
-       
+
+        String unparsedMessage = msg.getUnparsedMessage();
+
         int begin;
         int end;
-        String [] messageSplit;
-        String [] paramsSplit = null;
+        String[] messageSplit;
+        String[] paramsSplit = null;
 
         //prefix
         if (unparsedMessage.startsWith(":")) {
@@ -53,18 +53,16 @@ public class MessageParser {
             //msg.setCommand(messageSplit[1]);
             if (messageSplit[1].equals("QUIT")) {
                 msg.setCommand(Command.QUIT);
-            }
-            else if(messageSplit[1].equals("JOIN")) {
+            } else if (messageSplit[1].equals("JOIN")) {
                 msg.setCommand(Command.JOIN);
-            }
-            else if(messageSplit[1].equals("NICK")) {
+            } else if (messageSplit[1].equals("NICK")) {
                 msg.setCommand(Command.NICK);
-            }
-            else if(messageSplit[1].equals("PRIVMSG")) {
+            } else if (messageSplit[1].equals("PRIVMSG")) {
                 msg.setCommand(Command.PRIVMSG);
-            }
-            else if(messageSplit[1].equals("PING")) {
+            } else if (messageSplit[1].equals("PING")) {
                 msg.setCommand(Command.PING);
+            } else if (messageSplit[1].equalsIgnoreCase("USER")) {
+                msg.setCommand(Command.USER);
             }
             //parametry
             for (int i = 2; i < messageSplit.length; i++) {
@@ -76,41 +74,44 @@ public class MessageParser {
             messageSplit = unparsedMessage.split(" ", 2);
             if (messageSplit[0].equals("QUIT")) {
                 msg.setCommand(Command.QUIT);
-            }
-            else if(messageSplit[0].equals("JOIN")) {
+            } else if (messageSplit[0].equals("JOIN")) {
                 msg.setCommand(Command.JOIN);
-            }
-            else if(messageSplit[0].equals("NICK")) {
+            } else if (messageSplit[0].equals("NICK")) {
                 msg.setCommand(Command.NICK);
-            }
-            else if(messageSplit[0].equals("PRIVMSG")) {
+            } else if (messageSplit[0].equals("PRIVMSG")) {
                 msg.setCommand(Command.PRIVMSG);
-            }
-            else if(messageSplit[0].equals("PING")) {
+            } else if (messageSplit[0].equals("PING")) {
                 msg.setCommand(Command.PING);
+            } else if (messageSplit[0].equalsIgnoreCase("USER")) {
+                msg.setCommand(Command.USER);
             }
             //todo else
             for (int i = 1; i < messageSplit.length; i++) {
                 msg.setParams(msg.getParams() + messageSplit[i]);
             }
         }
-
+        
         if (msg.getParams().contains(":")) {
             end = msg.getParams().indexOf(":");
-            if(msg.getParams().contains(",")) {
-               String p = msg.getParams().substring(0, end);
+            String p = msg.getParams().substring(0, end);
+            if (p.contains(",")) {
+
                 paramsSplit = p.split(",");
                 msg.setMiddleParams(paramsSplit);
-            }
-            else {
-                paramsSplit[0] = msg.getParams();
+            } else if (p.trim().contains(" ")) {
+                paramsSplit = p.split(" ");
+                msg.setMiddleParams(paramsSplit);
+            } else {
+                paramsSplit = new String[1];
+                paramsSplit[0] = msg.getParams().substring(0, end);
                 msg.setMiddleParams(paramsSplit);
             }
             msg.setTrailingParams(msg.getParams().substring(end + 1, msg.getParams().length()));
         } else if (!msg.getParams().isEmpty()) {
+            paramsSplit = new String[1];
             paramsSplit[0] = msg.getParams();
             msg.setMiddleParams(paramsSplit);
-            
+
         }
 
         return msg;
