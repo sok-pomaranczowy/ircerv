@@ -25,5 +25,8 @@ public class UserRepository {
         return userDB.remove(user);
     }
 
+    public int getSize(){
+        return userDB.size();
+    }
 
 }
