@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author rudi
+ * @author Anna Łukaszek-Zadrożna
  */
 public class Channels {
     List<Channel> channels;
