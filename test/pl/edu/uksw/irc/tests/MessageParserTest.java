@@ -21,36 +21,29 @@ public class MessageParserTest {
         renderer = new MessageRenderer();
     }
         
-    /*@Test
+    @Test
     public void testPasswordMessage(){
-        //parseMessage(":hello!sir@madam PRIVMSG #test :Hello, world!");
-        String incomingMessage = ":hello!sir@madam PRIVMSG #test :Hello, world!";
-        MessageDTO parseMessage = parser.parseMessage(incomingMessage);
+        String incomingMessage = ":hello!sir@madam PRIVMSG test :Hello, world!";
+        MessageDTO parseMessage = parser.parseMessage(new MessageDTO(incomingMessage,null));
         Assert.assertEquals(parseMessage.getName(), "hello");
         Assert.assertEquals(parseMessage.getUser(), "sir");
         Assert.assertEquals(parseMessage.getHost(), "madam");
-        //Assert.assertEquals(parseMessage.getCommand(), "PRIVMSG");
-        Assert.assertEquals(parseMessage.getMiddleParams(), "test ");
+        Assert.assertEquals(parseMessage.getCommand(), Command.PRIVMSG);
+        Assert.assertEquals(parseMessage.getMiddleParams()[0], "test ");
         Assert.assertEquals(parseMessage.getTrailingParams(), "Hello, world!");
         assertThat(parseMessage.getName(), not("h1ello"));
         
-    }*/
+    }
 
     
      @Test
     public void testRendererMessage(){
-        //parseMessage(":hello!sir@madam PRIVMSG #test :Hello, world!");
-        
-        
         String name = "";
         String user = "";
         String host = "";
         Command command = Command.NICK;
-        String middleParams ="A";
+        String [] middleParams ={"A", "B"};
         String trailingParams = "";
-        //String msg2 = ":"+name+"!"+user+"@"+host+" "+command+" "+middleParams+" :"+trailingParams;
-        
-        
         MessageDTO message = new MessageDTO();
         
         message.setName(name);
@@ -60,18 +53,9 @@ public class MessageParserTest {
         message.setMiddleParams(middleParams);
         
         message.setTrailingParams(trailingParams);
-        //String msg2 = ":hello!sir@madam PRIVMSG #test :Hello, world!";
-        String msg2 = ":Angel PRIVMSG Wiz :Hello are you receiving this message?";
-        String msg3 = ":"+name+" "+Command.PRIVMSG+" "+middleParams+ " :"+trailingParams;
         String msg = renderer.renderMessage(message);
-        String msg4 = Command.NICK+ " "+middleParams;
-        //Assert.assertEquals(msg, msg2);
-        //Assert.assertEquals(msg, msg3);
+        String msg4 = Command.NICK+ " "+middleParams[0]+ ", "+middleParams[1];
         Assert.assertEquals(msg, msg4);
-        
-     
-        
-        
     }
     
     @Test
@@ -81,8 +65,8 @@ public class MessageParserTest {
         String user = "";
         String host = "";
         Command command = Command.PRIVMSG;
-        String middleParams ="Wiz";
-        String trailingParams = "Hello are you receiving this message?";
+        String [] middleParams ={"Wiz"};
+        String trailingParams = "Hello, are you receiving this message?";
         
         MessageDTO message = new MessageDTO();
         
@@ -93,7 +77,7 @@ public class MessageParserTest {
         message.setMiddleParams(middleParams);
         
         message.setTrailingParams(trailingParams);
-        String msg3 = ":"+name+" "+Command.PRIVMSG+" "+middleParams+ " :"+trailingParams;
+        String msg3 = ":"+name+" "+Command.PRIVMSG+" "+middleParams[0]+ " :"+trailingParams;
         String msg = renderer.renderMessage(message);
         Assert.assertEquals(msg, msg3);       
     }

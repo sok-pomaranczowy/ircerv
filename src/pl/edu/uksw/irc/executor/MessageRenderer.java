@@ -21,7 +21,17 @@ public class MessageRenderer {
                 }
             }
         }
-        message = message + msg.getCommand().name() + " " + msg.getMiddleParams();
+        message = message + msg.getCommand().name() + " ";
+        if(msg.getMiddleParams().length > 1) {
+            for(int i=0;i<msg.getMiddleParams().length;i++) {
+                message = message + msg.getMiddleParams()[i];
+                if(i < msg.getMiddleParams()[i].length()) {
+                    message = message + ", ";
+                }
+            }
+        }
+        else
+            message = message + msg.getMiddleParams()[0];
         if(!msg.getTrailingParams().isEmpty()) {
             message = message + " :"+msg.getTrailingParams();
         }
