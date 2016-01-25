@@ -1,4 +1,4 @@
-package pl.edu.uksw.irc.executor.persistance;
+package pl.edu.uksw.irc.executor;
 
 /**
  * Created by sok_pomaranczowy on 08.01.16.
