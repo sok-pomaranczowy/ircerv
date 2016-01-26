@@ -10,3 +10,5 @@ To start our server run with your favourite command line  `JAVA -JAR IRCERV.JAR`
 # BUILD
 
 To build our project from source clone this repository and build it with `javac`
+
+![ProjektPlan](docs/ProjektPodlag.png)
